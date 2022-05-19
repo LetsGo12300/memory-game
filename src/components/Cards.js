@@ -4,17 +4,25 @@ import Azerbaijan from '../cards/Azerbaijan_lgflag.jpg';
 import Bahrain from '../cards/Bahrain_lgflag.jpg';
 import Bangladesh from '../cards/Bangladesh_lgflag.jpg';
 import Bhutan from '../cards/Bhutan_lgflag.jpg';
-import React, { useState } from "react";
+import Brunei from '../cards/Brunei_lgflag.jpg';
+import Cambodia from '../cards/Cambodia_lgflag.jpg';
+import China from '../cards/China_lgflag.jpg';
+
+import React, { useEffect, useState } from "react";
 
 const Cards = (props) => {
-    const [sequence, setSequence] = useState([0,1,2,3,4,5]);
+    const { score, setScore, bestScore, setBestScore } = props;
+    const [sequence, setSequence] = useState([0,1,2,3,4,5,6,7,8]);
     const [cardNames] = useState([
         "Afghanistan",
         "Armenia",
         "Azerbaijan",
         "Bahrain",
         "Bangladesh",
-        "Bhutan"
+        "Bhutan",
+        "Brunei",
+        "Cambodia",
+        "China"
     ]);
     const [cards] = useState([
         Afghanistan,
@@ -22,10 +30,16 @@ const Cards = (props) => {
         Azerbaijan,
         Bahrain,
         Bangladesh,
-        Bhutan
+        Bhutan,
+        Brunei,
+        Cambodia,
+        China
     ]);
     
     const [clicked, setClicked] = useState([
+        false,
+        false,
+        false,
         false,
         false,
         false,
@@ -37,20 +51,23 @@ const Cards = (props) => {
     const onClickCard = (e) => {
         const cardIndex = e.target.getAttribute('data-index');
 
-        if (!clicked[cardIndex]){
+        if (!clicked[cardIndex]){ // if card is not yet clicked
             handleScore();
             handleClicked(cardIndex);
+        } else { // if card is already clicked -> Game Over, Reset states
+            setScore(0);
+            alert('game over');
+            handleResetState();
+            window.localStorage.setItem('bestScore', bestScore);
         }
-
-        handleShuffle();
-    }; 
+    };
 
     const handleScore = () => {
-        if (props.score < props.bestScore){
-            props.setScore(props.score+1);
+        if (score < bestScore){
+            setScore(score+1);
         } else {
-            props.setScore(props.score+1);
-            props.setBestScore(props.score+1);
+            setScore(score+1);
+            setBestScore(score+1);
         }
     };
 
@@ -60,18 +77,37 @@ const Cards = (props) => {
         setClicked(newClicked);
     };
 
-    const handleShuffle = () => {
-        const newSequence = [...sequence];
-        setSequence(shuffleArray(newSequence));
+    const handleResetState = () => {
+        setClicked([
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ]);
     };
 
-    const shuffleArray = (array) => {
-        for (let i = array.length-1; i > 0; i--){
-            const j = Math.floor(Math.random() * (i+1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    };
+    useEffect(() => {
+        const handleShuffle = () => {
+            const newSequence = [...sequence];
+            setSequence(shuffleArray(newSequence));
+        };
+    
+        const shuffleArray = (array) => {
+            for (let i = array.length-1; i > 0; i--){
+                const j = Math.floor(Math.random() * (i+1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        };
+
+        handleShuffle();
+        // eslint-disable-next-line
+    }, [clicked]);
 
     return(
         <div className="flag-container">

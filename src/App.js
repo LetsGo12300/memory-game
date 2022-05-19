@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import "./styles/style.css"
 
 const App = () => {
+  let initialBestScore = (window.localStorage.getItem("bestScore") === null ? 0 : window.localStorage.getItem("bestScore"));
   const [score, setScore]  = useState(0);
-  const [bestScore, setBestScore] = useState(0);
+  const [bestScore, setBestScore] = useState(initialBestScore);
 
   return (
     <div className="container">
