@@ -8,7 +8,7 @@ import React, { useState } from "react";
 
 const Cards = (props) => {
     const [sequence, setSequence] = useState([0,1,2,3,4,5]);
-    const [cardNames, setCardNames] = useState([
+    const [cardNames] = useState([
         "Afghanistan",
         "Armenia",
         "Azerbaijan",
@@ -16,7 +16,7 @@ const Cards = (props) => {
         "Bangladesh",
         "Bhutan"
     ]);
-    const [cards, setCards] = useState([
+    const [cards] = useState([
         Afghanistan,
         Armenia,
         Azerbaijan,
@@ -41,6 +41,8 @@ const Cards = (props) => {
             handleScore();
             handleClicked(cardIndex);
         }
+
+        handleShuffle();
     }; 
 
     const handleScore = () => {
@@ -58,13 +60,26 @@ const Cards = (props) => {
         setClicked(newClicked);
     };
 
+    const handleShuffle = () => {
+        const newSequence = [...sequence];
+        setSequence(shuffleArray(newSequence));
+    };
+
+    const shuffleArray = (array) => {
+        for (let i = array.length-1; i > 0; i--){
+            const j = Math.floor(Math.random() * (i+1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
+
     return(
         <div className="flag-container">
             {sequence.map(index => {
                 return(
                 <div key={index}>
                     <img onClick={onClickCard} data-index={index} className="flag" src={cards[index]} alt={cardNames[index]}/>
-                    <div className="flag-title">{cardNames[index]} {index}</div>
+                    <div className="flag-title">{cardNames[index]}</div>
                 </div>
                 )
             })}
