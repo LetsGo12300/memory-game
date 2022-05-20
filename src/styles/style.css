@@ -29,6 +29,10 @@ body{
     padding: 10px;
     color: #e4e4e7;
     background-color: #152861;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .footer{
@@ -70,6 +74,39 @@ body{
     text-align: center;
 }
 
+svg{
+    width: 1.5rem;
+}
+
+svg:hover{
+    color: #888888;
+    cursor: pointer;
+}
+
+.instructions{
+    position: relative;
+    display: inline-block;
+}
+
+.instructions-text{
+    color: #374151;
+    background-color: #d1d5db;
+    position: absolute;
+    left: -125px;
+    width: 250px;
+    padding: 15px;
+    border-radius: 3px;
+    text-align: justify;
+    display:none;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1;
+}
+
+.instructions:hover .instructions-text{
+    display: flex;
+}
+
 @media only screen and (max-width: 768px) {
     .flag-container{
         grid-template-columns: repeat(2, 1fr);
@@ -78,6 +115,10 @@ body{
     .flag{
         width: 150px;
         height: 100px;
+    }
+
+    .instructions-text{
+        left: -250px;
     }
 }
 
