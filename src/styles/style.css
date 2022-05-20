@@ -69,3 +69,25 @@ body{
 .flag-title{
     text-align: center;
 }
+
+@media only screen and (max-width: 768px) {
+    .flag-container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .flag{
+        width: 150px;
+        height: 100px;
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .flag-container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .flag{
+        width: 200px;
+        height: 133px;
+    }
+}
