@@ -1,5 +1,6 @@
 import Scores from "./components/Scores";
 import Cards from "./components/Cards";
+import Header from "./components/Header";
 import React, { useState } from "react";
 import "./styles/style.css"
 
@@ -10,6 +11,7 @@ const App = () => {
 
   return (
     <div className="container">
+      <Header/>
       <Scores score={score} bestScore={bestScore}/>
       <Cards score={score} setScore={setScore} bestScore={bestScore} setBestScore={setBestScore}/>
     </div>
